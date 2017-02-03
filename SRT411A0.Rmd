@@ -1,0 +1,194 @@
+---
+title: "Assignment 0: Intro to R and Github"
+author: "Sausha Mohammadi"
+username: "smohammadi15"
+date: "Janurary 29th, 2017"
+output: html_document
+---
+
+The following are the answers to [A (very) short
+introduction to R](https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf)
+
+1. Compute the difference between 2014 and the year you started at this university and divide this by the difference between 2014 and the year you were born. Multiply this with 100 to get the percentage of your life you have spent at this university. Use brackets if you need them
+
+```{r}
+((2017-2015)/(2017-1991))*100
+```
+
+
+2. Repeat the previous ToDo, but with several steps in between. You can give the variables any name you want, but the name has to start with a letter. 
+
+```{r}
+x= (2017-2015)
+y= (2017-1991)
+percent= 100
+x/y*percent
+```
+
+
+3. Compute the sum of 4, 5, 8 and 11 by first combining them into a vector and then using the function sum.
+
+```{r}
+vector= c(4,5,8,11)
+sum(vector)
+```
+
+
+4. Plot 100 normal random numbers.
+
+```{r fig.width=4, fig.height=3}
+plot(rnorm(100))
+```
+
+
+5. Find help for the sqrt function.
+
+```{r}
+help(sqrt)
+```
+
+
+6. Make a file called firstscript.R containing Rcode that generates 100 random numbers and plots them, and run this script several times.
+
+Create a file called firstscript.R containing the code: 
+```{r fig.width=4, fig.height=3}
+plot(rnorm(100))
+```
+CTRL+SHIFT+S to run the script multiple times.
+
+
+7. Put the numbers 31 to 60 in a vector named P and in a matrix with 6 rows and 5 columns named Q. Tip: use the function seq. Look at the different ways scalars, vectors and matrices are denoted in the workspace window.
+
+```{r}
+P= seq(from=31, to=60, by=10)
+Q= matrix(P,ncol=5, nrow=6)
+P
+Q
+```
+
+
+8. Make a script file which constructs three random normal vectors of length 100. Call these vectors x1, x2 and x3. Make a data frame called t with three columns (called a, b and c) containing respectively x1, x1+x2 and x1+x2+x3. Call the following functions for this data frame: plot(t) and sd(t). Can you understand the results? Rerun this script a few times.
+
+```{r fig.width=6, fig.height=5}
+x1=rnorm(100)
+x2=rnorm(100)
+x3=rnorm(100)
+t= data.frame(a=x1, b=x1+x2, c=x1+x2+x3)
+plot(t)
+```
+
+
+9. Add these lines to the script file of the previous section. Try to find out, either by experimenting or by using the help, what the meaning is of rgb, the last argument of rgb, lwd, pch, cex.
+
+```{r fig.width=5, fig.height=4}
+plot(t$a, type="l", ylim=range(t), lwd=3, col=rgb(1,0,0,0.3))
+lines(t$b, type="s", lwd=2, col=rgb(0.3,0.4,0.3,0.9))
+points(t$c, pch=20, cex=4, col=rgb(0,0,1,0.3))
+```
+
+10. The rbg() function sets the colors, specified by the values of the colors red, blue and green.
+
+Make a file called tst1.txt in Notepad from the example in Figure 4 and store it in your working directory. Write a script to read it, to multiply the column called g by 5 and to store it as tst2.txt.
+
+First I created a .txt file called tst1.txt containing the following:
+a g x
+1 2 3
+2 4 6
+4 8 12
+8 16 24
+16 32 48
+32 64 96
+
+```{r}	
+data= read.table(file="tst1.txt",header=TRUE)
+data$g*5
+```
+```{r}	
+write.table(data$g*5,file="tst2.txt",row.names=FALSE)
+```
+
+Tst2.txt contains:
+"x"
+10
+20
+40
+80
+160
+320
+
+
+11. Compute the mean of the square root of a vector of 100 random numbers. What happens?
+
+```{r}	
+mean(sqrt(rnorm(100)))
+```
+
+Warning message:
+In sqrt(rnorm(100)) : NaNs produced
+
+
+12. Make a graph with on the x-axis: today, Sinterklaas 2014 and your next birthday and on the y-axis the number of presents you expect on each of these days. Tip: make two vectors first.
+
+```{r fig.width=4, fig.height=3}
+date=strptime(c("20170130","20170610"),format="%Y%m%d")
+presents=c(10,20)
+plot(date, presents)
+```
+
+
+13. Make a vector from 1 to 100. Make a for-loop which runs through the whole vector. Multiply the elements which are smaller than 5 and larger than 90 with 10 and the other elements with 0.1.
+
+```{r}
+s=1:100
+for(i in 1:100)
+{
+  if(s[i]<5 | s[i]>90)
+  {
+    s[i]=s[i]*10;
+  } else
+  {
+    s[i]=s[i]*0.1;
+  }
+}
+s
+```
+
+
+14. Write a function for the previous ToDo, so that you can feed it any vector you like (as argument). Use a for-loop in the function to do the computation with each element. Use the standard R function length in the specification of the counter.
+
+```{r}
+func= function(arg1)
+{
+  l= length(arg1)
+  for(i in 1:l)
+  {
+    if(arg1[i]<5 | arg1[i]>90)
+    {
+      arg1[i]= arg1[i]*10
+    } else
+    {
+      arg1[i]= arg1[i]*0.1
+    }
+  }
+  return(arg1)
+}
+func(arg1=1:95)
+```
+
+
+Footnote. Actually, people often use more for-loops than necessary.
+The ToDo above can be done more easily
+and quickly without a for-loop but with regular vector computations.
+
+```{r}
+a=seq(from=10, to=40, by=10)
+b=seq(from=0.5, to=9.0, by=0.1)
+c=seq(from=910, to=1000, by=10)
+c(a,b,c)
+```
+
+
+
+Sources:
+https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf
+http://kbroman.org/knitr_knutshell/pages/Rmarkdown.html
