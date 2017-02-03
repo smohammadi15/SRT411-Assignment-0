@@ -1,11 +1,8 @@
 ---
-title: 'Assignment 0: Intro to R and Github'
+title: "Assignment 0: Intro to R and Github"
 author: "Sausha Mohammadi"
-output:
-  html_document: default
-  pdf_document: default
-  word_document: default
-username: smohammadi15
+username: "smohammadi15"
+output: html_document
 ---
 
 The following are the answers to [A (very) short
