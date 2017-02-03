@@ -206,3 +206,4 @@ c(a,b,c)
 Sources:
 https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf
 http://kbroman.org/knitr_knutshell/pages/Rmarkdown.html
+https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
